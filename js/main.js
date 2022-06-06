@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 function getRandom(min, max) {
   if (min >= max || min < 0 || max < 0) {
     console.log('ОШИБКА! диапазон может быть только положительный, включая ноль, первый аргумент должен быть меньше второго');
