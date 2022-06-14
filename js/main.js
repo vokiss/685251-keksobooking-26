@@ -5,7 +5,6 @@ const titles = ['Аппартаменты','Квартира', 'Комната',
 const types = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const checkTime = ['12:00', '13:00', '14:00'];
 const features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-// const randomFeatures1 = [];
 const description = ['Описание1', 'Описание2', 'Описание3'];
 const photos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 const locationLL = {
@@ -25,7 +24,7 @@ function getRandomPositiveFloat (a, b, digits = 1) { // Рандом с точк
   return +result.toFixed(digits);
 }
 for (let i = 1; i <= avatarIdsCount ; i++ ) { // Заполняем урлы в массив
-  avatarIds.push(i < 10 ? ('img/avatars/user0' + i.toString() + '.png') : 'img/avatars/user' + i.toString() + '.png');
+  avatarIds.push(i < 10 ? (`img/avatars/user0${  i.toString()  }.png`) : `img/avatars/user${  i.toString()  }.png`);
 }
 function getRandomArrayElement(elements) { // случайный элемент массива
   return elements[getRandomPositiveInteger(0, elements.length - 1)];
@@ -40,11 +39,9 @@ function randomNoRepeats(array) { // случайный не повторяющ�
     return item;
   };
 }
-function getRandomElements(array, length) {
+function getRandomElements(array, length) { // получаем новый массив из массива с параметром длины
   return array.slice(getRandomPositiveInteger(0, length));
 }
-
-
 const createBookingAd = () => ({
   author: { // +объект — описывает автора
     avatar: chooserAvatarIds(), // +строка — адрес изображения
@@ -69,4 +66,4 @@ const createBookingAd = () => ({
 });
 
 const bookingAds = Array.from({length: 10}, createBookingAd);
-console.log(bookingAds);
+bookingAds();
