@@ -1,13 +1,10 @@
-// eslint-disable-next-line no-console
-console.log('data module active!');
-
 import {getRandomArrayElement,
   getRandomPositiveInteger, getRandomPositiveFloat,
   getRandomElements, getShuffledRandomArray
 } from './util.js';
 
 const titles = ['Аппартаменты','Квартира', 'Комната', 'Вилла'];
-const types = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const types = ['Дворец ', 'Квартира ', 'Дом ', 'Бунгало ', 'Отель'];
 const checkTimes = ['12:00', '13:00', '14:00'];
 const features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const descriptions = ['Описание1', 'Описание2', 'Описание3'];
@@ -40,5 +37,5 @@ const createBookingAd = (item, index) => {
 };
 
 const bookingAds = Array.from({length: 10}, createBookingAd);
-// eslint-disable-next-line no-console
-console.log(bookingAds);
+
+export {createBookingAd};
