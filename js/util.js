@@ -1,7 +1,3 @@
-// eslint-disable-next-line no-console
-console.log('location module active!');
-
-
 function getRandomPositiveInteger (a, b) { // Рандом
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -32,6 +28,7 @@ function getShuffledRandomArray(array) { // получаем шафлленый 
   newArray = array.slice(x);
   return newArray;
 }
+
 export {getRandomArrayElement,
   getRandomPositiveInteger, getRandomPositiveFloat,
   getRandomElements, getShuffledRandomArray
