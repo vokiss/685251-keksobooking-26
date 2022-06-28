@@ -29,7 +29,31 @@ function getShuffledRandomArray(array) { // получаем шафлленый 
   return newArray;
 }
 
-export {getRandomArrayElement,
+const setData = function (element, valueToCheck, elementProperty = 'textContent', content) {
+  if (valueToCheck.includes(undefined) || valueToCheck === undefined) {
+    element.classList.add('hidden');
+  } else {
+    element[elementProperty] = content ? content : valueToCheck;
+  }
+};
+
+const changeState = function (state) {
+  const adForm = document.querySelector('.ad-form');
+  const mapFilters = document.querySelector('.map__filters');
+  if (state === 0) {
+    adForm.classList.add('ad-form--disabled');
+    adForm.setAttribute('disabled', 'disabled');
+    mapFilters.classList.add('map__filters--disabled');
+    mapFilters.setAttribute('disabled', 'disabled');
+  }  else if (state === 1) {
+    adForm.classList.remove('ad-form--disabled');
+    adForm.removeAttribute('disabled');
+    mapFilters.classList.remove('map__filters--disabled');
+    mapFilters.removeAttribute('disabled');
+  }};
+changeState(1);
+
+export {setData, getRandomArrayElement,
   getRandomPositiveInteger, getRandomPositiveFloat,
   getRandomElements, getShuffledRandomArray
 };
