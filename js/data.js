@@ -7,7 +7,9 @@ const titles = ['Аппартаменты','Квартира', 'Комната',
 const checkTimes = ['12:00', '13:00', '14:00'];
 const features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const descriptions = ['Описание1', 'Описание2', 'Описание3'];
-const photos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
+const photos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 const types = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const encodedTypes = {
   palace: 'Дворец' ,
