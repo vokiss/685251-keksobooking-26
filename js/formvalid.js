@@ -36,6 +36,7 @@ form.addEventListener('submit', (evt) => {
 });
 typeField.addEventListener('change', () => {
   priceField.placeholder = minPrice[typeField.value];
+  priceField.value = minPrice[typeField.value];
 } );
 checktimeField.addEventListener('change', (evt) => {
   for (const input of timeSelectFields) {
