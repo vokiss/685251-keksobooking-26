@@ -3,7 +3,7 @@ import {similarCards, spawnCard} from './form.js';
 const addressField = document.querySelector('#address');
 const [TOKYO_LAT, TOKYO_LNG] = [35.652832, 139.839478];
 const [ICON_SIZE, BOOKING_ICON_SIZE] = [52, 40];
-addressField.placeholder = `${TOKYO_LAT} ${TOKYO_LNG}`;
+addressField.value = `${TOKYO_LAT} ${TOKYO_LNG}`;
 // LEAFLET
 const map = L.map('map-canvas').setView(
   {

@@ -5,7 +5,7 @@ const cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 const priceElement = document.querySelector('#slider');
-const valueElement = document.querySelector('#price');
+const priceField = document.querySelector('#price');
 const spawnCard = function (data) {
   const cardElement = cardTemplate.cloneNode(true);
   const popupTitle = cardElement.querySelector('.popup__title');
@@ -48,7 +48,7 @@ noUiSlider.create(priceElement, {
   connect: 'lower',
 });
 priceElement.noUiSlider.on('update', () => {
-  valueElement.value = priceElement.noUiSlider.get();
+  priceField.value = priceElement.noUiSlider.get();
 });
 
 export {similarCards, spawnCard};
