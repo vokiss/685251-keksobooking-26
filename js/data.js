@@ -20,8 +20,8 @@ const encodedTypes = {
 };
 
 const createBookingAd = (_item, index) => {
-  const location = [getRandomPositiveFloat(35.65000,35.70000,5), getRandomPositiveFloat(139.70000,139.80000,5)];
-
+  const location = [getRandomPositiveFloat(35.65000,35.70000,5),
+    getRandomPositiveFloat(139.70000,139.80000,5)];
   return {
     location: {
       lat: location[0], //+число с плавающей точкой — широта, случайное значение от 35.65000 до 35.70000.

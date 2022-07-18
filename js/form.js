@@ -1,11 +1,11 @@
-import {createBookingAd} from './data.js';
 import {setData} from './util.js';
-const similarCards = Array.from({length: 10}, createBookingAd);
+// const similarCards = Array.from({length: 10}, createBookingAd);
 const cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
-const priceElement = document.querySelector('#slider');
+const sliderElement = document.querySelector('#slider');
 const valueElement = document.querySelector('#price');
+
 const spawnCard = function (data) {
   const cardElement = cardTemplate.cloneNode(true);
   const popupTitle = cardElement.querySelector('.popup__title');
@@ -15,30 +15,54 @@ const spawnCard = function (data) {
   const popupText = cardElement.querySelector('.popup__text--capacity');
   const popupTextTime = cardElement.querySelector('.popup__text--time');
   const popupDescription = cardElement.querySelector('.popup__description');
-  const popupPhoto = cardElement.querySelector('.popup__photo');
+  const popupPhotos = cardElement.querySelector('.popup__photos');
   const popupAvatar = cardElement.querySelector('.popup__avatar');
   const popupFeatures = cardElement.querySelector('.popup__features')
     .querySelectorAll('.popup__feature');
-  const modifiers = data.offer.features.map((feature) => `popup__feature--${  feature}`);
+
+
   popupFeatures.forEach((featureListItem) => {
-    const modifier = featureListItem.classList[1];
-    if (!modifiers.includes(modifier)) {
-      featureListItem.remove();
+    if (data.offer.features !== undefined) {
+      const modifiers = data.offer.features.map((feature) => `popup__feature--${  feature}`);
+      const modifier = featureListItem.classList[1];
+      if (!modifiers.includes(modifier)) {
+        featureListItem.remove();
+      } else if (modifiers === undefined) {
+        featureListItem.remove();
+      }
+    }});
+
+  const updatePhotos = (el, arr) => {
+    if (arr && arr.length) {
+      el.innerHTML = '';
+      arr.forEach((photo) => {
+        const photoElement = document.createElement('img');
+        photoElement.classList.add('popup__photo');
+        photoElement.width = '45';
+        photoElement.height = '40';
+        photoElement.alt = 'Фотография жилья';
+        photoElement.src = photo;
+        el.append(photoElement);
+      });
+    } else {
+      el.remove();
     }
-  });
+  };
+
+  updatePhotos(popupPhotos, data.offer.photos);
   setData(popupTitle, data.offer.title, 'textContent');
   setData(popupTextAdress, data.offer.address, 'textContent');
   setData(popupType, data.offer.type, 'textContent');
   setData(popupTextPrice, `${data.offer.price  }₽/ночь`, 'textContent');
   setData(popupDescription, data.offer.description, 'textContent');
   setData(popupAvatar, data.author.avatar, 'src');
-  setData(popupPhoto, data.offer.photos[0], 'src');
   setData(popupText, [data.offer.rooms, data.offer.guests], 'textContent', `${data.offer.rooms} комнаты для ${data.offer.guests} гостей`);
   setData(popupTextTime,[data.offer.checkin, data.offer.checkout], 'textContent', `Заезд после ${data.offer.checkin}, выезд до ${data.offer.checkout}`);
   return cardElement;
 };
+
 // noUiSlider
-noUiSlider.create(priceElement, {
+noUiSlider.create(sliderElement, {
   range: {
     min: 0,
     max: 100000,
@@ -47,8 +71,10 @@ noUiSlider.create(priceElement, {
   step: 100,
   connect: 'lower',
 });
-priceElement.noUiSlider.on('update', () => {
-  valueElement.value = priceElement.noUiSlider.get();
+sliderElement.noUiSlider.on('update', () => {
+  valueElement.value = sliderElement.noUiSlider.get();
 });
 
-export {similarCards, spawnCard};
+
+export {cardTemplate, spawnCard};
+

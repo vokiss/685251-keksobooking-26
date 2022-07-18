@@ -1,21 +1,20 @@
-const getRandomPositiveInteger = (a, b) => { // Рандом
+const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
 };
-const getRandomPositiveFloat = (a, b, digits = 1) => { // Рандом с точкой
+const getRandomPositiveFloat = (a, b, digits = 1) => {
   const lower = Math.min(Math.abs(a), Math.abs(b));
   const upper = Math.max(Math.abs(a), Math.abs(b));
   const result = Math.random() * (upper - lower) + lower;
   return +result.toFixed(digits);
 };
-const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
-
-function getRandomElements(array, length) { // получаем новый массив из массива с параметром длины
-  return array.slice(getRandomPositiveInteger(0, length));
-}
-function getShuffledRandomArray(array) { // получаем шафлленый массив случайной длины из массива
+const getRandomArrayElement = (elements) =>
+  elements[getRandomPositiveInteger(0, elements.length - 1)];
+const getRandomElements = (array, length) =>
+  array.slice(getRandomPositiveInteger(0, length));
+const getShuffledRandomArray = (array) => {
   let newArray = [];
   const x = Math.floor(Math.random() * (array.length));
   for (let i = array.length - 1; i > 0; i--) {
@@ -26,10 +25,10 @@ function getShuffledRandomArray(array) { // получаем шафлленый 
   }
   newArray = array.slice(x);
   return newArray;
-}
+};
 
 const setData = (element, valueToCheck, elementProperty = 'textContent', content) => {
-  if (valueToCheck.includes(undefined) || valueToCheck === undefined) {
+  if (valueToCheck === undefined || valueToCheck.includes(undefined)) {
     element.classList.add('hidden');
   } else {
     element[elementProperty] = content ? content : valueToCheck;
@@ -49,7 +48,6 @@ const changeState = (state) => {
     mapFilters.classList.remove('map__filters--disabled');
     mapFilters.removeAttribute('disabled');
   }};
-changeState(0);
 
 export {changeState, setData, getRandomArrayElement,
   getRandomPositiveInteger, getRandomPositiveFloat,
