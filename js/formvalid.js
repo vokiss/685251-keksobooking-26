@@ -32,15 +32,28 @@ const validateGuestCapacity = () => {
   return check.includes(capacityField.value);
 };
 const validateAddress = (value) => value.length > 0;
+
 pristine.addValidator(form.querySelector('#title'), validateTitle, `От ${MIN_TITLE} до ${MAX_TITLE} символов`);
 pristine.addValidator(priceField, validatePrice, getPriceFieldError);
 pristine.addValidator(capacityField, validateGuestCapacity,
   'Гостей слишком много для такого количества комнат');
 pristine.addValidator(form.querySelector('#address'), validateAddress, 'Координаты устанавливаются через карту');
+
 form.addEventListener('submit', (evt) => {
+  evt.preventDefault();
   const isValid = pristine.validate();
-  if (!isValid) {evt.preventDefault();}
+  if (isValid) {
+    const formData = new FormData(evt.target);
+    fetch('https://26.javascript.pages.academy/keksobooking',
+      {
+        method: 'POST',
+        body: formData,
+      },
+    );
+
+  }
 });
+
 typeField.addEventListener('change', () => {
   priceField.placeholder = MIN_PRICE[typeField.value];
 } );

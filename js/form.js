@@ -20,7 +20,6 @@ const spawnCard = function (data) {
   const popupFeatures = cardElement.querySelector('.popup__features')
     .querySelectorAll('.popup__feature');
 
-
   popupFeatures.forEach((featureListItem) => {
     if (data.offer.features !== undefined) {
       const modifiers = data.offer.features.map((feature) => `popup__feature--${  feature}`);

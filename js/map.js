@@ -1,5 +1,5 @@
 import {changeState} from './util.js';
-import {similarCards, spawnCard} from './form.js';
+import {spawnCard} from './form.js';
 const addressField = document.querySelector('#address');
 const [TOKYO_LAT, TOKYO_LNG] = [35.652832, 139.839478];
 const [ICON_SIZE, BOOKING_ICON_SIZE] = [52, 40];
@@ -58,6 +58,13 @@ const createAdds = (element) => {
     .bindPopup(spawnCard(element));
 };
 
-similarCards.forEach((element) => {
-  createAdds(element);
-});
+
+// fetch('https://26.javascript.pages.academy/keksobooking/data')
+//   .then((response) => response.json())
+//   .then((data) => {
+//     // eslint-disable-next-line no-console
+//     console.log(data);
+//     data.forEach((element) => createAdds(element));
+//   });
+
+export {createAdds};
