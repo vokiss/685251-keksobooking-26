@@ -1,3 +1,5 @@
+import { resetForm } from './map.js';
+
 const [MIN_TITLE, MAX_TITLE, MAX_PRICE] = [30, 100, 100000];
 const form = document.querySelector('.ad-form');
 const priceField = form.querySelector('#price');
@@ -42,17 +44,17 @@ pristine.addValidator(form.querySelector('#address'), validateAddress, 'Коор
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
+  const formData = new FormData(evt.target);
   if (isValid) {
-    const formData = new FormData(evt.target);
     fetch('https://26.javascript.pages.academy/keksobooking',
       {
         method: 'POST',
         body: formData,
       },
-    );
-
+    ).then(resetForm()).then();
   }
-});
+}
+);
 
 typeField.addEventListener('change', () => {
   priceField.placeholder = MIN_PRICE[typeField.value];

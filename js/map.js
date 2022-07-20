@@ -67,4 +67,12 @@ const createAdds = (element) => {
 //     data.forEach((element) => createAdds(element));
 //   });
 
-export {createAdds};
+const resetForm = () => {
+  document.querySelector('.ad-form').reset();
+  document.querySelector('.map__filters').reset();
+  map.closePopup();
+  marker.setLatLng({lat:TOKYO_LAT, lng:TOKYO_LNG});
+  addressField.value = `${TOKYO_LAT.toFixed(5)} ${TOKYO_LNG.toFixed(5)}`;
+};
+
+export {createAdds, resetForm};
