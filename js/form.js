@@ -69,6 +69,10 @@ noUiSlider.create(sliderElement, {
   start: 0,
   step: 100,
   connect: 'lower',
+  format: {
+    to: (value) => value.toFixed(0),
+    from: (value) => parseInt(value, 10),
+  },
 });
 sliderElement.noUiSlider.on('update', () => {
   valueElement.value = sliderElement.noUiSlider.get();

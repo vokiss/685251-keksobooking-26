@@ -1,7 +1,10 @@
-import { resetForm } from './map.js';
+import {resetForm} from './map.js';
+import { sendData } from './api.js';
+import {blockSubmitButton, unblockSubmitButton,getErrorMessage,getSuccessMessage} from './util.js';
 
 const [MIN_TITLE, MAX_TITLE, MAX_PRICE] = [30, 100, 100000];
 const form = document.querySelector('.ad-form');
+const formReset = document.querySelector('.ad-form__reset');
 const priceField = form.querySelector('#price');
 const typeField = form.querySelector('#type');
 const roomsField = form.querySelector('#room_number');
@@ -45,20 +48,26 @@ form.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
   const formData = new FormData(evt.target);
+  blockSubmitButton();
   if (isValid) {
-    fetch('https://26.javascript.pages.academy/keksobooking',
-      {
-        method: 'POST',
-        body: formData,
-      },
-    ).then(resetForm()).then();
+    sendData(getSuccessMessage,getErrorMessage,formData);
+    unblockSubmitButton();
+  } else {
+    unblockSubmitButton();
   }
+  resetForm();
 }
 );
+
+formReset.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  resetForm();
+});
 
 typeField.addEventListener('change', () => {
   priceField.placeholder = MIN_PRICE[typeField.value];
 } );
+
 checktimeField.addEventListener('change', (evt) => {
   for (const input of timeSelectFields) {
     if (input !== evt.target) {
