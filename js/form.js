@@ -1,10 +1,9 @@
 import {setData} from './util.js';
-// const similarCards = Array.from({length: 10}, createBookingAd);
 const cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 const sliderElement = document.querySelector('#slider');
-const valueElement = document.querySelector('#price');
+const priceElement = document.querySelector('#price');
 
 const spawnCard = function (data) {
   const cardElement = cardTemplate.cloneNode(true);
@@ -75,9 +74,8 @@ noUiSlider.create(sliderElement, {
   },
 });
 sliderElement.noUiSlider.on('update', () => {
-  valueElement.value = sliderElement.noUiSlider.get();
+  priceElement.value = sliderElement.noUiSlider.get();
 });
 
 
 export {cardTemplate, spawnCard};
-

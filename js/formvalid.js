@@ -1,8 +1,8 @@
 import {resetForm} from './map.js';
-import { sendData } from './api.js';
+import {sendData} from './api.js';
 import {blockSubmitButton, unblockSubmitButton,getErrorMessage,getSuccessMessage} from './util.js';
 
-const [MIN_TITLE, MAX_TITLE, MAX_PRICE] = [30, 100, 100000];
+const MIN_TITLE = 30, MAX_TITLE = 100, MAX_PRICE = 100000;
 const form = document.querySelector('.ad-form');
 const formReset = document.querySelector('.ad-form__reset');
 const priceField = form.querySelector('#price');
@@ -55,7 +55,6 @@ form.addEventListener('submit', (evt) => {
   } else {
     unblockSubmitButton();
   }
-  resetForm();
 }
 );
 

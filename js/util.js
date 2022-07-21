@@ -1,34 +1,5 @@
 const submitButton = document.querySelector('.ad-form__submit');
-const ALERT_SHOW_TIME = 5000;
-
-const getRandomPositiveInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
-const getRandomPositiveFloat = (a, b, digits = 1) => {
-  const lower = Math.min(Math.abs(a), Math.abs(b));
-  const upper = Math.max(Math.abs(a), Math.abs(b));
-  const result = Math.random() * (upper - lower) + lower;
-  return +result.toFixed(digits);
-};
-const getRandomArrayElement = (elements) =>
-  elements[getRandomPositiveInteger(0, elements.length - 1)];
-const getRandomElements = (array, length) =>
-  array.slice(getRandomPositiveInteger(0, length));
-const getShuffledRandomArray = (array) => {
-  let newArray = [];
-  const x = Math.floor(Math.random() * (array.length));
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
-  }
-  newArray = array.slice(x);
-  return newArray;
-};
+const ALERT_SHOW_TIME = 10000;
 
 const setData = (element, valueToCheck, elementProperty = 'textContent', content) => {
   if (valueToCheck === undefined || valueToCheck.includes(undefined)) {
@@ -83,34 +54,59 @@ const getFetchError = (message) => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
 };
+const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+
+const successTemplate = document.querySelector('#success')
+  .content
+  .querySelector('.success');
+
+const errorTemplate = document.querySelector('#error')
+  .content
+  .querySelector('.error');
 
 const getErrorMessage = () => {
-  const errorTemplate = document.querySelector('#error')
-    .content
-    .querySelector('.error');
-  const errorPopup = errorTemplate.cloneNode(true);
-  document.body.appendChild(errorPopup);
+  document.body.appendChild(errorTemplate);
+  document.addEventListener('keydown', errorEscPress);
+  errorTemplate.addEventListener('click', errorClickPress);
 };
+
+function removeErrorMessage () {
+  errorTemplate.remove();
+  document.removeEventListener('keydown', errorEscPress);
+  errorTemplate.removeEventListener('click', errorClickPress);
+}
+function errorEscPress (evt) {
+  if (isEscEvent(evt)) {
+    evt.preventDefault();
+    removeErrorMessage();
+  }}
+
+function errorClickPress () {
+  removeErrorMessage();
+}
+
+function successEscPress (evt) {
+  if (isEscEvent(evt)) {
+    evt.preventDefault();
+    removeSuccessMessage();
+  }
+}
+
+function removeSuccessMessage () {
+  successTemplate.remove();
+  document.removeEventListener('keydown', successEscPress);
+  successTemplate.removeEventListener('click', successClickPress);
+}
+
+function successClickPress () {
+  removeSuccessMessage();
+}
 
 const getSuccessMessage = () => {
-  const successTemplate = document.querySelector('#success')
-    .content
-    .querySelector('.success');
-  const successPopup = successTemplate.cloneNode(true);
-  document.body.appendChild(successPopup);
-  successPopup.addEventListener('click', () => {
-    successPopup.remove();
-  });
-  successPopup.addEventListener('keydown', (evt) => {
-    evt.preventDefault();
-    if (evt.key === 'Escape' || evt.key === 'Esc') {
-      successPopup.remove();
-    }
-  });
-
+  document.body.appendChild(successTemplate);
+  document.addEventListener('keydown', successEscPress);
+  successTemplate.addEventListener('click', successClickPress);
 };
 
-export {changeState, setData, getRandomArrayElement,
-  getRandomPositiveInteger, getRandomPositiveFloat,
-  getRandomElements, getShuffledRandomArray, blockSubmitButton,
+export {changeState, setData, blockSubmitButton,
   unblockSubmitButton, getFetchError, getErrorMessage, getSuccessMessage};

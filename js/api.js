@@ -1,3 +1,4 @@
+import {resetForm} from './map.js';
 const BASE_URL = 'https://26.javascript.pages.academy/keksobooking';
 const Error = {
   GET_DATA: 'Не удалось загрузить данные',
@@ -31,6 +32,7 @@ const sendData = (onSuccess, onError, body) => {
     .then((response) => {
       if (response.ok) {
         onSuccess();
+        resetForm();
       } else {
         onError(Error.GET_DATA);
       }
@@ -40,4 +42,4 @@ const sendData = (onSuccess, onError, body) => {
     });
 };
 
-export { getData, sendData };
+export {getData, sendData};

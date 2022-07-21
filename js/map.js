@@ -1,8 +1,8 @@
 import {changeState} from './util.js';
 import {spawnCard} from './form.js';
+const TOKYO_LAT = 35.652832, TOKYO_LNG = 139.839478;
+const ICON_SIZE = 52, BOOKING_ICON_SIZE = 40;
 const addressField = document.querySelector('#address');
-const [TOKYO_LAT, TOKYO_LNG] = [35.652832, 139.839478];
-const [ICON_SIZE, BOOKING_ICON_SIZE] = [52, 40];
 addressField.value = `${TOKYO_LAT} ${TOKYO_LNG}`;
 // LEAFLET
 const map = L.map('map-canvas').setView(
@@ -57,15 +57,6 @@ const createAdds = (element) => {
     .addTo(map)
     .bindPopup(spawnCard(element));
 };
-
-
-// fetch('https://26.javascript.pages.academy/keksobooking/data')
-//   .then((response) => response.json())
-//   .then((data) => {
-//     // eslint-disable-next-line no-console
-//     console.log(data);
-//     data.forEach((element) => createAdds(element));
-//   });
 
 const resetForm = () => {
   document.querySelector('.ad-form').reset();
