@@ -1,40 +1,14 @@
-const getRandomPositiveInteger = (a, b) => { // Рандом
-  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
-const getRandomPositiveFloat = (a, b, digits = 1) => { // Рандом с точкой
-  const lower = Math.min(Math.abs(a), Math.abs(b));
-  const upper = Math.max(Math.abs(a), Math.abs(b));
-  const result = Math.random() * (upper - lower) + lower;
-  return +result.toFixed(digits);
-};
-const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
-
-function getRandomElements(array, length) { // получаем новый массив из массива с параметром длины
-  return array.slice(getRandomPositiveInteger(0, length));
-}
-function getShuffledRandomArray(array) { // получаем шафлленый массив случайной длины из массива
-  let newArray = [];
-  const x = Math.floor(Math.random() * (array.length));
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
-  }
-  newArray = array.slice(x);
-  return newArray;
-}
+const submitButton = document.querySelector('.ad-form__submit');
+const ALERT_SHOW_TIME = 10000;
 
 const setData = (element, valueToCheck, elementProperty = 'textContent', content) => {
-  if (valueToCheck.includes(undefined) || valueToCheck === undefined) {
+  if (valueToCheck === undefined || valueToCheck.includes(undefined)) {
     element.classList.add('hidden');
   } else {
     element[elementProperty] = content ? content : valueToCheck;
   }
 };
+
 const changeState = (state) => {
   const adForm = document.querySelector('.ad-form');
   const mapFilters = document.querySelector('.map__filters');
@@ -49,9 +23,90 @@ const changeState = (state) => {
     mapFilters.classList.remove('map__filters--disabled');
     mapFilters.removeAttribute('disabled');
   }};
-changeState(0);
 
-export {changeState, setData, getRandomArrayElement,
-  getRandomPositiveInteger, getRandomPositiveFloat,
-  getRandomElements, getShuffledRandomArray
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикуется..';
 };
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
+const getFetchError = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = '100';
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = '0';
+  alertContainer.style.top = '0';
+  alertContainer.style.right = '0';
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'red';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+};
+const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+
+const successTemplate = document.querySelector('#success')
+  .content
+  .querySelector('.success');
+
+const errorTemplate = document.querySelector('#error')
+  .content
+  .querySelector('.error');
+
+const getErrorMessage = () => {
+  document.body.appendChild(errorTemplate);
+  document.addEventListener('keydown', errorEscPress);
+  errorTemplate.addEventListener('click', errorClickPress);
+};
+
+function removeErrorMessage () {
+  errorTemplate.remove();
+  document.removeEventListener('keydown', errorEscPress);
+  errorTemplate.removeEventListener('click', errorClickPress);
+}
+function errorEscPress (evt) {
+  if (isEscEvent(evt)) {
+    evt.preventDefault();
+    removeErrorMessage();
+  }}
+
+function errorClickPress () {
+  removeErrorMessage();
+}
+
+function successEscPress (evt) {
+  if (isEscEvent(evt)) {
+    evt.preventDefault();
+    removeSuccessMessage();
+  }
+}
+
+function removeSuccessMessage () {
+  successTemplate.remove();
+  document.removeEventListener('keydown', successEscPress);
+  successTemplate.removeEventListener('click', successClickPress);
+}
+
+function successClickPress () {
+  removeSuccessMessage();
+}
+
+const getSuccessMessage = () => {
+  document.body.appendChild(successTemplate);
+  document.addEventListener('keydown', successEscPress);
+  successTemplate.addEventListener('click', successClickPress);
+};
+
+export {changeState, setData, blockSubmitButton,
+  unblockSubmitButton, getFetchError, getErrorMessage, getSuccessMessage};

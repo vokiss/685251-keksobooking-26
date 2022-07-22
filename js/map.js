@@ -1,9 +1,9 @@
 import {changeState} from './util.js';
-import {similarCards, spawnCard} from './form.js';
+import {spawnCard} from './form.js';
+const TOKYO_LAT = 35.652832, TOKYO_LNG = 139.839478;
+const ICON_SIZE = 52, BOOKING_ICON_SIZE = 40;
 const addressField = document.querySelector('#address');
-const [TOKYO_LAT, TOKYO_LNG] = [35.652832, 139.839478];
-const [ICON_SIZE, BOOKING_ICON_SIZE] = [52, 40];
-addressField.placeholder = `${TOKYO_LAT} ${TOKYO_LNG}`;
+addressField.value = `${TOKYO_LAT} ${TOKYO_LNG}`;
 // LEAFLET
 const map = L.map('map-canvas').setView(
   {
@@ -58,6 +58,12 @@ const createAdds = (element) => {
     .bindPopup(spawnCard(element));
 };
 
-similarCards.forEach((element) => {
-  createAdds(element);
-});
+const resetForm = () => {
+  document.querySelector('.ad-form').reset();
+  document.querySelector('.map__filters').reset();
+  map.closePopup();
+  marker.setLatLng({lat:TOKYO_LAT, lng:TOKYO_LNG});
+  addressField.value = `${TOKYO_LAT.toFixed(5)} ${TOKYO_LNG.toFixed(5)}`;
+};
+
+export {createAdds, resetForm};
