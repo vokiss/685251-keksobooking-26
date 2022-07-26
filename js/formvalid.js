@@ -11,14 +11,14 @@ const roomsField = form.querySelector('#room_number');
 const capacityField = form.querySelector('#capacity');
 const checktimeField = form.querySelector('.ad-form__element--time');
 const timeSelectFields = checktimeField.querySelectorAll('select');
-const MIN_PRICE = {
+const MinPriceMap = {
   bungalow: 0,
   flat: 1000,
   hotel: 3000,
   house: 5000,
   palace: 10000,
 };
-const roomsCapacityMap = {
+const RoomsCapacityMap = {
   1: ['1'],
   2: ['1','2'],
   3: ['1','2','3'],
@@ -30,10 +30,10 @@ const pristine = new Pristine(form, {
   errorTextClass: 'ad-form__error_text',
 });
 const validateTitle = (value) => value.length >= MIN_TITLE && value.length <= MAX_TITLE;
-const validatePrice = (value) => value >= MIN_PRICE[typeField.value] && value <= MAX_PRICE;
-const getPriceFieldError = () => `укажите цену от ${  MIN_PRICE[typeField.value]} до ${MAX_PRICE}`;
+const validatePrice = (value) => value >= MinPriceMap[typeField.value] && value <= MAX_PRICE;
+const getPriceFieldError = () => `укажите цену от ${  MinPriceMap[typeField.value]} до ${MAX_PRICE}`;
 const validateGuestCapacity = () => {
-  const check = roomsCapacityMap[roomsField.value];
+  const check = RoomsCapacityMap[roomsField.value];
   return check.includes(capacityField.value);
 };
 const validateAddress = (value) => value.length > 0;
@@ -64,7 +64,7 @@ formReset.addEventListener('click', (evt) => {
 });
 
 typeField.addEventListener('change', () => {
-  priceField.placeholder = MIN_PRICE[typeField.value];
+  priceField.placeholder = MinPriceMap[typeField.value];
 } );
 
 checktimeField.addEventListener('change', (evt) => {

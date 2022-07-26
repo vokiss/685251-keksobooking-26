@@ -1,3 +1,4 @@
+import { resetForm } from './map.js';
 const submitButton = document.querySelector('.ad-form__submit');
 const ALERT_SHOW_TIME = 10000;
 
@@ -9,7 +10,7 @@ const setData = (element, valueToCheck, elementProperty = 'textContent', content
   }
 };
 
-const changeState = (state) => {
+function changeState(state) {
   const adForm = document.querySelector('.ad-form');
   const mapFilters = document.querySelector('.map__filters');
   if (state === 0) {
@@ -22,7 +23,7 @@ const changeState = (state) => {
     adForm.removeAttribute('disabled');
     mapFilters.classList.remove('map__filters--disabled');
     mapFilters.removeAttribute('disabled');
-  }};
+  }}
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
@@ -66,26 +67,26 @@ const errorTemplate = document.querySelector('#error')
 
 const getErrorMessage = () => {
   document.body.appendChild(errorTemplate);
-  document.addEventListener('keydown', errorEscPress);
-  errorTemplate.addEventListener('click', errorClickPress);
+  document.addEventListener('keydown', onErrorEscPress);
+  errorTemplate.addEventListener('click', onErrorClickPress);
 };
 
 function removeErrorMessage () {
   errorTemplate.remove();
-  document.removeEventListener('keydown', errorEscPress);
-  errorTemplate.removeEventListener('click', errorClickPress);
+  document.removeEventListener('keydown', onErrorEscPress);
+  errorTemplate.removeEventListener('click', onErrorClickPress);
 }
-function errorEscPress (evt) {
+function onErrorEscPress (evt) {
   if (isEscEvent(evt)) {
     evt.preventDefault();
     removeErrorMessage();
   }}
 
-function errorClickPress () {
+function onErrorClickPress () {
   removeErrorMessage();
 }
 
-function successEscPress (evt) {
+function onSuccessEscPress (evt) {
   if (isEscEvent(evt)) {
     evt.preventDefault();
     removeSuccessMessage();
@@ -94,19 +95,62 @@ function successEscPress (evt) {
 
 function removeSuccessMessage () {
   successTemplate.remove();
-  document.removeEventListener('keydown', successEscPress);
-  successTemplate.removeEventListener('click', successClickPress);
+  document.removeEventListener('keydown', onSuccessEscPress);
+  successTemplate.removeEventListener('click', onSuccessClickPress);
 }
 
-function successClickPress () {
+function onSuccessClickPress () {
   removeSuccessMessage();
 }
 
 const getSuccessMessage = () => {
   document.body.appendChild(successTemplate);
-  document.addEventListener('keydown', successEscPress);
-  successTemplate.addEventListener('click', successClickPress);
+  resetForm();
+  document.addEventListener('keydown', onSuccessEscPress);
+  successTemplate.addEventListener('click', onSuccessClickPress);
 };
 
-export {changeState, setData, blockSubmitButton,
-  unblockSubmitButton, getFetchError, getErrorMessage, getSuccessMessage};
+
+const updatePhotos = (el, arr) => {
+  if (arr && arr.length) {
+    el.innerHTML = '';
+    arr.forEach((photo) => {
+      const photoElement = document.createElement('img');
+      photoElement.classList.add('popup__photo');
+      photoElement.width = '45';
+      photoElement.height = '40';
+      photoElement.alt = 'Фотография жилья';
+      photoElement.src = photo;
+      el.append(photoElement);
+    });
+  } else {
+    el.remove();
+  }
+};
+
+const featuresSort = (features, data) => {
+  features.forEach((featureListItem) => {
+    if (data.offer.features !== undefined) {
+      const modifiers = data.offer.features.map((feature) => `popup__feature--${  feature}`);
+      const modifier = featureListItem.classList[1];
+      if (!modifiers.includes(modifier)) {
+        featureListItem.remove();
+      } else if (modifiers === undefined) {
+        featureListItem.remove();
+      }
+    }});
+};
+
+const debounce = (cb, timeoutDelay = 500) => {
+  let timeoutID;
+  return (...rest) => {
+    clearTimeout(timeoutID);
+    timeoutID = setTimeout(() => cb.apply(this, rest), timeoutDelay);
+  };
+};
+
+export {changeState,
+  setData, blockSubmitButton,
+  unblockSubmitButton, getFetchError,
+  getErrorMessage, getSuccessMessage,
+  updatePhotos, featuresSort, debounce};

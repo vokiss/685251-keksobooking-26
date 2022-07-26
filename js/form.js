@@ -1,9 +1,10 @@
-import {setData} from './util.js';
+import {setData, featuresSort, updatePhotos} from './util.js';
 const cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 const sliderElement = document.querySelector('#slider');
 const priceElement = document.querySelector('#price');
+
 
 const spawnCard = function (data) {
   const cardElement = cardTemplate.cloneNode(true);
@@ -19,34 +20,7 @@ const spawnCard = function (data) {
   const popupFeatures = cardElement.querySelector('.popup__features')
     .querySelectorAll('.popup__feature');
 
-  popupFeatures.forEach((featureListItem) => {
-    if (data.offer.features !== undefined) {
-      const modifiers = data.offer.features.map((feature) => `popup__feature--${  feature}`);
-      const modifier = featureListItem.classList[1];
-      if (!modifiers.includes(modifier)) {
-        featureListItem.remove();
-      } else if (modifiers === undefined) {
-        featureListItem.remove();
-      }
-    }});
-
-  const updatePhotos = (el, arr) => {
-    if (arr && arr.length) {
-      el.innerHTML = '';
-      arr.forEach((photo) => {
-        const photoElement = document.createElement('img');
-        photoElement.classList.add('popup__photo');
-        photoElement.width = '45';
-        photoElement.height = '40';
-        photoElement.alt = 'Фотография жилья';
-        photoElement.src = photo;
-        el.append(photoElement);
-      });
-    } else {
-      el.remove();
-    }
-  };
-
+  featuresSort(popupFeatures, data);
   updatePhotos(popupPhotos, data.offer.photos);
   setData(popupTitle, data.offer.title, 'textContent');
   setData(popupTextAdress, data.offer.address, 'textContent');
@@ -59,7 +33,6 @@ const spawnCard = function (data) {
   return cardElement;
 };
 
-// noUiSlider
 noUiSlider.create(sliderElement, {
   range: {
     min: 0,

@@ -1,7 +1,12 @@
 import './form.js';
 import './formvalid.js';
 import {getFetchError} from './util.js';
-import {renderAdds} from './map.js';
+import {onSuccessGetOffers} from './map.js';
 import {getData} from './api.js';
+import {initMediaPreview} from './upload.js';
 
-getData(renderAdds, getFetchError);
+getData(onSuccessGetOffers, getFetchError);
+
+window.addEventListener('DOMContentLoaded', () => {
+  initMediaPreview();
+});

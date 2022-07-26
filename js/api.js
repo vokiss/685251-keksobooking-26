@@ -1,8 +1,7 @@
-import {resetForm} from './map.js';
 const BASE_URL = 'https://26.javascript.pages.academy/keksobooking';
 const Error = {
-  GET_DATA: 'Не удалось загрузить данные',
-  SEND_DATA: 'Не удалось отправить форму. Попробуйте ещё раз',
+  GET_DATA: 'ОШИБКА! Не удалось загрузить данные',
+  SEND_DATA: 'ОШИБКА! Не удалось отправить форму. Попробуйте ещё раз',
 };
 
 const getData = (onSuccess, onError) => {
@@ -14,8 +13,6 @@ const getData = (onSuccess, onError) => {
       onError(Error.GET_DATA);
     })
     .then((data) => {
-      // eslint-disable-next-line no-console
-      console.log(data);
       onSuccess(data);
     })
     .catch(() => {
@@ -34,7 +31,6 @@ const sendData = (onSuccess, onError, body) => {
     .then((response) => {
       if (response.ok) {
         onSuccess();
-        resetForm();
       } else {
         onError(Error.SEND_DATA);
       }
