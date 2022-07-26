@@ -1,11 +1,10 @@
-import {resetForm} from './map.js';
 const BASE_URL = 'https://26.javascript.pages.academy/keksobooking';
 const Error = {
-  GET_DATA: 'Не удалось загрузить данные',
-  SEND_DATA: 'Не удалось отправить форму. Попробуйте ещё раз',
+  GET_DATA: 'ОШИБКА! Не удалось загрузить данные',
+  SEND_DATA: 'ОШИБКА! Не удалось отправить форму. Попробуйте ещё раз',
 };
 
-const getData = (onSuccess, onError, maxAdds) => {
+const getData = (onSuccess, onError) => {
   fetch(`${BASE_URL}/data`)
     .then((response) => {
       if (response.ok) {
@@ -14,7 +13,7 @@ const getData = (onSuccess, onError, maxAdds) => {
       onError(Error.GET_DATA);
     })
     .then((data) => {
-      data.slice(0, maxAdds).forEach((element) => onSuccess(element));
+      onSuccess(data);
     })
     .catch(() => {
       onError(Error.GET_DATA);
@@ -32,13 +31,12 @@ const sendData = (onSuccess, onError, body) => {
     .then((response) => {
       if (response.ok) {
         onSuccess();
-        resetForm();
       } else {
-        onError(Error.GET_DATA);
+        onError(Error.SEND_DATA);
       }
     })
     .catch(() => {
-      onError(Error.GET_DATA);
+      onError(Error.SEND_DATA);
     });
 };
 

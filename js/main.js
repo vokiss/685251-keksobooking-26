@@ -1,8 +1,12 @@
 import './form.js';
 import './formvalid.js';
 import {getFetchError} from './util.js';
-import {createAdds} from './map.js';
+import {onSuccessGetOffers} from './map.js';
 import {getData} from './api.js';
+import {initMediaPreview} from './upload.js';
 
-const MAX_BOOKING_ADDS = 10;
-getData(createAdds, getFetchError, MAX_BOOKING_ADDS);
+getData(onSuccessGetOffers, getFetchError);
+
+window.addEventListener('DOMContentLoaded', () => {
+  initMediaPreview();
+});

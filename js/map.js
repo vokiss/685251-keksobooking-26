@@ -1,5 +1,8 @@
 import {changeState} from './util.js';
 import {spawnCard} from './form.js';
+import {initFilters} from './filter.js';
+
+const MAX_BOOKING_ADDS = 10;
 const TOKYO_LAT = 35.652832, TOKYO_LNG = 139.839478;
 const ICON_SIZE = 52, BOOKING_ICON_SIZE = 40;
 const addressField = document.querySelector('#address');
@@ -41,7 +44,10 @@ marker.on('drag', (evt) => {
   const latLng = evt.target.getLatLng();
   addressField.value = `${latLng.lat.toFixed(5)} ${latLng.lng.toFixed(5)}`;
 });
+
 marker.addTo(map);
+
+const markerGroup = L.layerGroup().addTo(map);
 
 const createAdds = (element) => {
   const addMarker = L.marker(
@@ -54,16 +60,31 @@ const createAdds = (element) => {
     }
   );
   addMarker
-    .addTo(map)
+    .addTo(markerGroup)
     .bindPopup(spawnCard(element));
 };
 
-const resetForm = () => {
+const clearMarkers = () => {
+  markerGroup.clearLayers();
+};
+
+
+const renderAdds = (data) => {
+  clearMarkers();
+  data.slice(0, MAX_BOOKING_ADDS).forEach((element) => createAdds(element));
+};
+
+function resetForm () {
   document.querySelector('.ad-form').reset();
   document.querySelector('.map__filters').reset();
   map.closePopup();
   marker.setLatLng({lat:TOKYO_LAT, lng:TOKYO_LNG});
   addressField.value = `${TOKYO_LAT.toFixed(5)} ${TOKYO_LNG.toFixed(5)}`;
+}
+
+const onSuccessGetOffers = (offers) => {
+  renderAdds(offers);
+  initFilters(offers, renderAdds);
 };
 
-export {createAdds, resetForm};
+export {onSuccessGetOffers,renderAdds,resetForm, clearMarkers};
