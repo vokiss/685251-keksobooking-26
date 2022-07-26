@@ -1,5 +1,6 @@
 import {changeState} from './util.js';
 import {spawnCard} from './form.js';
+const MAX_BOOKING_ADDS = 10;
 const TOKYO_LAT = 35.652832, TOKYO_LNG = 139.839478;
 const ICON_SIZE = 52, BOOKING_ICON_SIZE = 40;
 const addressField = document.querySelector('#address');
@@ -58,6 +59,11 @@ const createAdds = (element) => {
     .bindPopup(spawnCard(element));
 };
 
+const renderAdds = (data) => {
+  data.slice(0, MAX_BOOKING_ADDS).forEach((element) => createAdds(element));
+};
+
+
 const resetForm = () => {
   document.querySelector('.ad-form').reset();
   document.querySelector('.map__filters').reset();
@@ -66,4 +72,4 @@ const resetForm = () => {
   addressField.value = `${TOKYO_LAT.toFixed(5)} ${TOKYO_LNG.toFixed(5)}`;
 };
 
-export {createAdds, resetForm};
+export {renderAdds,resetForm};

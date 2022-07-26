@@ -5,7 +5,7 @@ const Error = {
   SEND_DATA: 'Не удалось отправить форму. Попробуйте ещё раз',
 };
 
-const getData = (onSuccess, onError, maxAdds) => {
+const getData = (onSuccess, onError) => {
   fetch(`${BASE_URL}/data`)
     .then((response) => {
       if (response.ok) {
@@ -14,7 +14,9 @@ const getData = (onSuccess, onError, maxAdds) => {
       onError(Error.GET_DATA);
     })
     .then((data) => {
-      data.slice(0, maxAdds).forEach((element) => onSuccess(element));
+      // eslint-disable-next-line no-console
+      console.log(data);
+      onSuccess(data);
     })
     .catch(() => {
       onError(Error.GET_DATA);
@@ -34,11 +36,11 @@ const sendData = (onSuccess, onError, body) => {
         onSuccess();
         resetForm();
       } else {
-        onError(Error.GET_DATA);
+        onError(Error.SEND_DATA);
       }
     })
     .catch(() => {
-      onError(Error.GET_DATA);
+      onError(Error.SEND_DATA);
     });
 };
 
