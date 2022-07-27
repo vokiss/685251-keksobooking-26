@@ -14,12 +14,10 @@ const setData = (element, valueToCheck, elementProperty = 'textContent', content
 function changeState(isDisabled) {
   const adForm = document.querySelector('.ad-form');
   const mapFilters = document.querySelector('.map__filters');
-  if (!isDisabled) {
-    adForm.classList.toggle('ad-form--disabled', isDisabled);
-    adForm.toggleAttribute('disabled', isDisabled);
-    mapFilters.classList.toggle('ad-form--disabled', isDisabled);
-    mapFilters.toggleAttribute('disabled', isDisabled);
-  }
+  adForm.classList.toggle('ad-form--disabled', !isDisabled);
+  adForm.toggleAttribute('disabled', !isDisabled);
+  mapFilters.classList.toggle('ad-form--disabled', !isDisabled);
+  mapFilters.toggleAttribute('disabled', !isDisabled);
 }
 
 const blockSubmitButton = () => {
