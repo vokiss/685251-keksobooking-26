@@ -1,5 +1,4 @@
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
-
 const adForm = document.querySelector('.ad-form');
 const avatarPreview = adForm.querySelector('.ad-form-header__preview img');
 const avatarPreviewDefaultSrc = avatarPreview.src;
