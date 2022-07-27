@@ -1,7 +1,7 @@
 import {resetForm} from './map.js';
 import {sendData} from './api.js';
 import {blockSubmitButton, unblockSubmitButton,getErrorMessage,getSuccessMessage} from './util.js';
-
+import {resetAllPreviews} from './upload.js';
 const MIN_TITLE = 30, MAX_TITLE = 100, MAX_PRICE = 100000;
 const form = document.querySelector('.ad-form');
 const formReset = document.querySelector('.ad-form__reset');
@@ -61,6 +61,7 @@ form.addEventListener('submit', (evt) => {
 formReset.addEventListener('click', (evt) => {
   evt.preventDefault();
   resetForm();
+  resetAllPreviews();
 });
 
 typeField.addEventListener('change', () => {

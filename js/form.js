@@ -1,10 +1,16 @@
-import {setData, featuresSort, updatePhotos} from './util.js';
+import {setData, sortFeatures, updatePhotos} from './util.js';
 const cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 const sliderElement = document.querySelector('#slider');
 const priceElement = document.querySelector('#price');
-
+const encodedTypes = {
+  palace: 'Дворец' ,
+  flat:'Квартира',
+  house: 'Дом',
+  bungalow: 'Бунгало',
+  hotel: 'Отель'
+};
 
 const spawnCard = function (data) {
   const cardElement = cardTemplate.cloneNode(true);
@@ -20,11 +26,11 @@ const spawnCard = function (data) {
   const popupFeatures = cardElement.querySelector('.popup__features')
     .querySelectorAll('.popup__feature');
 
-  featuresSort(popupFeatures, data);
+  sortFeatures(popupFeatures, data);
   updatePhotos(popupPhotos, data.offer.photos);
   setData(popupTitle, data.offer.title, 'textContent');
   setData(popupTextAdress, data.offer.address, 'textContent');
-  setData(popupType, data.offer.type, 'textContent');
+  setData(popupType, encodedTypes[data.offer.type], 'textContent');
   setData(popupTextPrice, `${data.offer.price  }₽/ночь`, 'textContent');
   setData(popupDescription, data.offer.description, 'textContent');
   setData(popupAvatar, data.author.avatar, 'src');
@@ -49,6 +55,5 @@ noUiSlider.create(sliderElement, {
 sliderElement.noUiSlider.on('update', () => {
   priceElement.value = sliderElement.noUiSlider.get();
 });
-
 
 export {cardTemplate, spawnCard};
