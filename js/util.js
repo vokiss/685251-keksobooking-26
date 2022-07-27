@@ -10,20 +10,27 @@ const setData = (element, valueToCheck, elementProperty = 'textContent', content
   }
 };
 
-function changeState(state) {
+function changeState(isDisabled) {
   const adForm = document.querySelector('.ad-form');
   const mapFilters = document.querySelector('.map__filters');
-  if (state === 0) {
-    adForm.classList.add('ad-form--disabled');
-    adForm.setAttribute('disabled', 'disabled');
-    mapFilters.classList.add('map__filters--disabled');
-    mapFilters.setAttribute('disabled', 'disabled');
-  }  else if (state === 1) {
-    adForm.classList.remove('ad-form--disabled');
-    adForm.removeAttribute('disabled');
-    mapFilters.classList.remove('map__filters--disabled');
-    mapFilters.removeAttribute('disabled');
-  }}
+  if (isDisabled) {
+    adForm.classList.toggle('ad-form--disabled');
+    adForm.toggleAttribute('disabled');
+    mapFilters.classList.toggle('ad-form--disabled');
+    mapFilters.toggleAttribute('disabled');
+  }
+  // if (state === 0) {
+  //   adForm.classList.add('ad-form--disabled');
+  //   adForm.setAttribute('disabled', 'disabled');
+  //   mapFilters.classList.add('map__filters--disabled');
+  //   mapFilters.setAttribute('disabled', 'disabled');
+  // }  else if (state === 1) {
+  //   adForm.classList.remove('ad-form--disabled');
+  //   adForm.removeAttribute('disabled');
+  //   mapFilters.classList.remove('map__filters--disabled');
+  //   mapFilters.removeAttribute('disabled');
+  // }
+}
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;

@@ -7,7 +7,6 @@ const TOKYO_LAT = 35.652832, TOKYO_LNG = 139.839478;
 const ICON_SIZE = 52, BOOKING_ICON_SIZE = 40;
 const addressField = document.querySelector('#address');
 addressField.value = `${TOKYO_LAT} ${TOKYO_LNG}`;
-// LEAFLET
 const map = L.map('map-canvas').setView(
   {
     lat: TOKYO_LAT,
@@ -19,7 +18,7 @@ L.tileLayer(
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
 ).addTo(map);
-map.on('load', changeState(1));
+map.on('load', changeState(false));
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
   iconSize: [ICON_SIZE, ICON_SIZE],
