@@ -15,10 +15,10 @@ function changeState(isDisabled) {
   const adForm = document.querySelector('.ad-form');
   const mapFilters = document.querySelector('.map__filters');
   if (!isDisabled) {
-    adForm.classList.toggle('ad-form--disabled');
-    adForm.toggleAttribute('disabled');
-    mapFilters.classList.toggle('ad-form--disabled');
-    mapFilters.toggleAttribute('disabled');
+    adForm.classList.toggle('ad-form--disabled', isDisabled);
+    adForm.toggleAttribute('disabled', isDisabled);
+    mapFilters.classList.toggle('ad-form--disabled', isDisabled);
+    mapFilters.toggleAttribute('disabled', isDisabled);
   }
 }
 
