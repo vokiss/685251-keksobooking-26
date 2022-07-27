@@ -18,7 +18,7 @@ L.tileLayer(
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
 ).addTo(map);
-map.on('load', changeState(false));
+map.on('load', changeState(true));
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
   iconSize: [ICON_SIZE, ICON_SIZE],
