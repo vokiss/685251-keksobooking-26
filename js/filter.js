@@ -1,6 +1,6 @@
 import {debounce} from './util.js';
 const DEFAULT_SELECT_VALUE = 'any';
-const PrisePoint = {
+const PricePoint = {
   MIDDLE: 10000,
   HIGH: 50000,
 };
@@ -14,12 +14,12 @@ const filterByType = (el) => typeFilter.value === DEFAULT_SELECT_VALUE
 const filterByPrice = (el) => {
   switch(priceFilter.value) {
     case 'low':
-      return el.offer.price < PrisePoint.MIDDLE;
+      return el.offer.price < PricePoint.MIDDLE;
     case 'middle':
-      return el.offer.price >= PrisePoint.MIDDLE
-        && el.offer.price < PrisePoint.HIGH;
+      return el.offer.price >= PricePoint.MIDDLE
+        && el.offer.price < PricePoint.HIGH;
     case 'high':
-      return el.offer.price >= PrisePoint.HIGH;
+      return el.offer.price >= PricePoint.HIGH;
     default:
       return true;
   }
@@ -39,14 +39,7 @@ const filterByFeatures = (el) => {
   if (!selectedFeatures || !selectedFeatures.length) {
     return true;
   }
-
-  for (const feature of selectedFeatures) {
-    if (!el.offer.features || !el.offer.features.includes(feature.value)) {
-      return false;
-    }
-  }
-
-  return true;
+  return selectedFeatures.every((feature) => el.offer.features && el.offer.features.includes(feature.value));
 };
 
 const filterOffers = (el) =>

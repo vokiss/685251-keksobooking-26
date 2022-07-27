@@ -1,4 +1,5 @@
 import { resetForm } from './map.js';
+import { resetAllPreviews } from './upload.js';
 const submitButton = document.querySelector('.ad-form__submit');
 const ALERT_SHOW_TIME = 10000;
 
@@ -106,6 +107,7 @@ function onSuccessClickPress () {
 const getSuccessMessage = () => {
   document.body.appendChild(successTemplate);
   resetForm();
+  resetAllPreviews();
   document.addEventListener('keydown', onSuccessEscPress);
   successTemplate.addEventListener('click', onSuccessClickPress);
 };
@@ -128,7 +130,7 @@ const updatePhotos = (el, arr) => {
   }
 };
 
-const featuresSort = (features, data) => {
+const sortFeatures = (features, data) => {
   features.forEach((featureListItem) => {
     if (data.offer.features !== undefined) {
       const modifiers = data.offer.features.map((feature) => `popup__feature--${  feature}`);
@@ -153,4 +155,5 @@ export {changeState,
   setData, blockSubmitButton,
   unblockSubmitButton, getFetchError,
   getErrorMessage, getSuccessMessage,
-  updatePhotos, featuresSort, debounce};
+  updatePhotos, sortFeatures, debounce};
+
