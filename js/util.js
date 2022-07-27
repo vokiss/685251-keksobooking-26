@@ -30,7 +30,7 @@ const unblockSubmitButton = () => {
   submitButton.textContent = 'Опубликовать';
 };
 
-const getFetchError = (message) => {
+function getFetchError (message) {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = '100';
   alertContainer.style.position = 'absolute';
@@ -49,7 +49,7 @@ const getFetchError = (message) => {
   setTimeout(() => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
-};
+}
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
 const successTemplate = document.querySelector('#success')
@@ -62,6 +62,7 @@ const errorTemplate = document.querySelector('#error')
 
 const getErrorMessage = () => {
   document.body.appendChild(errorTemplate);
+  unblockSubmitButton();
   document.addEventListener('keydown', onErrorEscPress);
   errorTemplate.addEventListener('click', onErrorClickPress);
 };
@@ -102,6 +103,8 @@ const getSuccessMessage = () => {
   document.body.appendChild(successTemplate);
   resetForm();
   resetAllPreviews();
+  slider.noUiSlider.reset()
+  unblockSubmitButton();
   document.addEventListener('keydown', onSuccessEscPress);
   successTemplate.addEventListener('click', onSuccessClickPress);
 };

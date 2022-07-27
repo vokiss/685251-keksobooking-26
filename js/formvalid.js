@@ -38,7 +38,7 @@ const validateGuestCapacity = () => {
 };
 const validateAddress = (value) => value.length > 0;
 
-pristine.addValidator(form.querySelector('#title'), validateTitle, `От ${MIN_TITLE} до ${MAX_TITLE} символов`);
+pristine.addValidator(form.querySelector('#title'), validateTitle, `Обязательное поле, от ${MIN_TITLE} до ${MAX_TITLE} символов`);
 pristine.addValidator(priceField, validatePrice, getPriceFieldError);
 pristine.addValidator(capacityField, validateGuestCapacity,
   'Гостей слишком много для такого количества комнат');
@@ -51,7 +51,6 @@ form.addEventListener('submit', (evt) => {
   blockSubmitButton();
   if (isValid) {
     sendData(getSuccessMessage,getErrorMessage,formData);
-    unblockSubmitButton();
   } else {
     unblockSubmitButton();
   }
