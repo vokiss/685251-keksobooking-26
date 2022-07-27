@@ -103,7 +103,6 @@ const getSuccessMessage = () => {
   document.body.appendChild(successTemplate);
   resetForm();
   resetAllPreviews();
-  slider.noUiSlider.reset()
   unblockSubmitButton();
   document.addEventListener('keydown', onSuccessEscPress);
   successTemplate.addEventListener('click', onSuccessClickPress);

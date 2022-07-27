@@ -57,9 +57,9 @@ noUiSlider.create(sliderElement, {
 sliderElement.noUiSlider.on('update', () => {
   priceElement.value = sliderElement.noUiSlider.get();
 });
-function sliderReset () {
+const sliderReset = () => {
   sliderElement.noUiSlider.reset();
-}
+};
 
 
 export {sliderReset,cardTemplate, spawnCard};
