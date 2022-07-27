@@ -39,21 +39,7 @@ const filterByFeatures = (el) => {
   if (!selectedFeatures || !selectedFeatures.length) {
     return true;
   }
-
-  selectedFeatures.forEach((feature) => {
-    if (!el.offer.features || !el.offer.features.includes(feature.value)) {
-      return false;
-    }
-  }
-  );
-
-  //   for (const feature of selectedFeatures) {
-  //     if (!el.offer.features || !el.offer.features.includes(feature.value)) {
-  //       return false;
-  //     }
-  //   }
-
-  return true;
+  return selectedFeatures.every((feature) => el.offer.features && el.offer.features.includes(feature.value));
 };
 
 const filterOffers = (el) =>
