@@ -68,6 +68,10 @@ const initFilters = (offers, cb) => {
     'change',
     debounce(onFiltersChange(offers))
   );
+  filters.addEventListener(
+    'reset',
+    debounce(onFiltersChange(offers))
+  );
 };
 
 export {initFilters};

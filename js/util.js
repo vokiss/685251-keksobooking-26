@@ -20,6 +20,12 @@ function togglePageState(isDisabled) {
   mapFilters.toggleAttribute('disabled', isDisabled);
 }
 
+function toggleFilterFields(isDisabled) {
+  const mapFilters = document.querySelector('.map__filters');
+  mapFilters.classList.toggle('ad-form--disabled', isDisabled);
+  mapFilters.toggleAttribute('disabled', isDisabled);
+}
+
 const blockSubmitButton = () => {
   submitButton.disabled = true;
   submitButton.textContent = 'Публикуется..';
@@ -31,6 +37,7 @@ const unblockSubmitButton = () => {
 };
 
 function getFetchError (message) {
+  toggleFilterFields(true);
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = '100';
   alertContainer.style.position = 'absolute';
